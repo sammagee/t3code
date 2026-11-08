@@ -665,26 +665,26 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
   initial-value: 0;
 }
 
-/* Registered so getComputedStyle returns px. The shell overrides the send size; these initials match the sm+ circle. */
+/* Registered so getComputedStyle resolves calc() to px. initial-value is px: a rem initial is not computationally independent, so the browser drops the rule. These match the sm+ circle at a 16px root; the shell still sets rem. */
 @property --composer-send-size {
   syntax: "<length>";
   inherits: true;
-  initial-value: 2rem;
+  initial-value: 32px;
 }
 @property --composer-send-inset {
   syntax: "<length>";
   inherits: true;
-  initial-value: 0.5rem;
+  initial-value: 8px;
 }
 @property --composer-optical-leading {
   syntax: "<length>";
   inherits: true;
-  initial-value: 0.125rem;
+  initial-value: 2px;
 }
 @property --composer-radius {
   syntax: "<length>";
   inherits: true;
-  initial-value: 1.5rem;
+  initial-value: 24px;
 }
 @property --composer-radius-outer {
   syntax: "<length>";
@@ -694,22 +694,22 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
 @property --composer-footer-leading {
   syntax: "<length>";
   inherits: true;
-  initial-value: 0.625rem;
+  initial-value: 10px;
 }
 @property --composer-editor-leading {
   syntax: "<length>";
   inherits: true;
-  initial-value: 1.125rem;
+  initial-value: 18px;
 }
 @property --composer-editor-leading-compact {
   syntax: "<length>";
   inherits: true;
-  initial-value: 0.875rem;
+  initial-value: 14px;
 }
 @property --chat-composer-drawer-inset {
   syntax: "<length>";
   inherits: true;
-  initial-value: 1.9375rem;
+  initial-value: 31px;
 }
 @property --chat-composer-attachment-overlap {
   syntax: "<length>";
