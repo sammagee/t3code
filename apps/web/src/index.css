@@ -665,6 +665,58 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
   initial-value: 0;
 }
 
+/* Registered so getComputedStyle returns px. The shell overrides the send size; these initials match the sm+ circle. */
+@property --composer-send-size {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 2rem;
+}
+@property --composer-send-inset {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.5rem;
+}
+@property --composer-optical-leading {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.125rem;
+}
+@property --composer-radius {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1.5rem;
+}
+@property --composer-radius-outer {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 25px;
+}
+@property --composer-footer-leading {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.625rem;
+}
+@property --composer-editor-leading {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1.125rem;
+}
+@property --composer-editor-leading-compact {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.875rem;
+}
+@property --chat-composer-drawer-inset {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1.9375rem;
+}
+@property --chat-composer-attachment-overlap {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 26px;
+}
+
 @layer base {
   ::highlight(t3-assistant-citation) {
     background-color: color-mix(

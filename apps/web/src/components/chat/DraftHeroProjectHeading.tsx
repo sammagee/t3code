@@ -5,9 +5,11 @@ import { observeResize } from "~/lib/observeResize";
 export function DraftHeroProjectHeading({
   children,
   projectName,
+  reserveClear = false,
 }: {
   children: ReactNode;
   projectName: string;
+  reserveClear?: boolean;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const inlineRef = useRef<HTMLSpanElement>(null);
@@ -40,8 +42,9 @@ export function DraftHeroProjectHeading({
           className="flex w-max items-baseline gap-2 whitespace-nowrap font-normal text-3xl tracking-tight"
         >
           <span>What should we build in</span>
-          <span>
-            <span className="font-medium">{projectName}</span>?
+          <span className="inline-flex items-baseline">
+            <span className="ps-1.5 font-medium">{projectName}</span>
+            {reserveClear ? <span className="hidden w-6 pointer-fine:inline-block" /> : null}?
           </span>
         </span>
       </span>

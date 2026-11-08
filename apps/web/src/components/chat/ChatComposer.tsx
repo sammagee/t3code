@@ -3348,7 +3348,7 @@ export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps)
             data-chat-composer-surface="true"
             data-chat-composer-mobile-collapsed={isComposerCollapsedMobile ? "true" : "false"}
             className={cn(
-              "rounded-2xl transition-[background-color] duration-200",
+              "rounded-(--composer-radius) transition-[background-color] duration-200",
               "in-data-[thread-context-over]:bg-accent/45 in-data-[thread-context-over]:ring-1 in-data-[thread-context-over]:ring-inset in-data-[thread-context-over]:ring-primary/70",
               isDragOverComposer ? "bg-accent/45 ring-1 ring-inset ring-primary/70" : null,
               projectSelectionRequired ? "opacity-75" : null,
@@ -3415,7 +3415,7 @@ export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps)
               }}
               data-chat-composer-body="true"
               className={cn(
-                "relative px-4 pb-2",
+                "relative ps-(--composer-editor-leading) pe-4 pb-2",
                 "pt-3.5 sm:pt-4",
                 isComposerCollapsedMobile && "hidden",
               )}
@@ -3585,7 +3585,7 @@ export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps)
             {speechInput.preview ? (
               <div
                 aria-label="Live transcription"
-                className="mx-3 mb-3 max-h-32 overflow-y-auto rounded-lg border border-border/60 bg-muted/30 px-3 py-2 text-sm leading-relaxed break-words whitespace-pre-wrap sm:mx-4"
+                className="ms-(--composer-editor-leading-compact) me-3 mb-3 max-h-32 overflow-y-auto rounded-lg border border-border/60 bg-muted/30 px-3 py-2 text-sm leading-relaxed break-words whitespace-pre-wrap sm:ms-(--composer-editor-leading) sm:me-4"
               >
                 <span>{speechInput.preview.committed}</span>
                 <span className="text-muted-foreground">{speechInput.preview.tentative}</span>
@@ -3596,7 +3596,7 @@ export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps)
               <div
                 data-chat-composer-footer="true"
                 className={cn(
-                  "flex min-w-0 flex-nowrap items-center overflow-visible px-2 pb-2",
+                  "flex min-w-0 flex-nowrap items-center overflow-visible ps-(--composer-footer-leading) pe-(--composer-send-inset) pb-(--composer-send-inset)",
                   pendingUserInputs.length > 0 && "pt-2",
                   showMobilePendingAnswerActions &&
                     speechInput.state.phase === "idle" &&
@@ -3726,7 +3726,7 @@ export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps)
               <div className="h-8">
                 <div
                   ref={setInlineRestingControlsHost}
-                  className="absolute bottom-2 inset-x-4 min-w-0"
+                  className="absolute bottom-2 inset-e-4 start-(--composer-editor-leading) min-w-0"
                 >
                   <div
                     ref={attachRestingComposerControls}

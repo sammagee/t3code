@@ -1,12 +1,14 @@
-import { type ReactNode, useLayoutEffect, useState } from "react";
+import { type CSSProperties, type ReactNode, useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { observeResize } from "~/lib/observeResize";
+import { readCssLengthPx } from "./readCssLengthPx";
 
 type ComposerCommandMenuPosition = {
   bottom: number;
   left: number;
   maxHeight: number;
   width: number;
+  radiusOuter: string;
 };
 
 function composerCommandMenuPositionsEqual(
@@ -14,7 +16,11 @@ function composerCommandMenuPositionsEqual(
   b: ComposerCommandMenuPosition,
 ): boolean {
   return (
-    a.bottom === b.bottom && a.left === b.left && a.maxHeight === b.maxHeight && a.width === b.width
+    a.bottom === b.bottom &&
+    a.left === b.left &&
+    a.maxHeight === b.maxHeight &&
+    a.width === b.width &&
+    a.radiusOuter === b.radiusOuter
   );
 }
 
@@ -37,21 +43,26 @@ export function ComposerCommandMenuLayer(props: {
       const rect = (mainSurface ?? form ?? anchor).getBoundingClientRect();
       const rootFontSizePx =
         Number.parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16;
-      const drawerInsetRem = Number.parseFloat(
-        window.getComputedStyle(form ?? anchor).getPropertyValue("--chat-composer-drawer-inset"),
+      const composerStyle = window.getComputedStyle(form ?? anchor);
+      const drawerInset = readCssLengthPx(
+        composerStyle.getPropertyValue("--chat-composer-drawer-inset"),
+        rootFontSizePx,
       );
-      const drawerInset = drawerInsetRem * rootFontSizePx;
+      const composerOverlap = readCssLengthPx(
+        composerStyle.getPropertyValue("--chat-composer-attachment-overlap"),
+        rootFontSizePx,
+      );
       const width = rect.width - drawerInset * 2;
-      if (width <= 0) {
+      if (width <= 0 || !Number.isFinite(drawerInset) || !Number.isFinite(composerOverlap)) {
         setPosition(null);
         return;
       }
-      const composerOverlap = rootFontSizePx + 1;
       const next = {
         bottom: window.innerHeight - rect.top - composerOverlap,
         left: rect.left + drawerInset,
         maxHeight: Math.max(96, rect.top - 24 + composerOverlap),
         width,
+        radiusOuter: composerStyle.getPropertyValue("--composer-radius-outer").trim(),
       };
       setPosition((current) =>
         current && composerCommandMenuPositionsEqual(current, next) ? current : next,
@@ -81,12 +92,15 @@ export function ComposerCommandMenuLayer(props: {
     <div
       className="pointer-events-auto fixed z-40 flex flex-col"
       data-composer-drawer-layer="true"
-      style={{
-        bottom: position.bottom,
-        left: position.left,
-        maxHeight: position.maxHeight,
-        width: position.width,
-      }}
+      style={
+        {
+          bottom: position.bottom,
+          left: position.left,
+          maxHeight: position.maxHeight,
+          width: position.width,
+          "--composer-radius-outer": position.radiusOuter,
+        } as CSSProperties
+      }
     >
       {props.children}
     </div>,
